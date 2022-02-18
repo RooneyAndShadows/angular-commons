@@ -1,9 +1,22 @@
 {
-  "name": "ng-commons",
-  "version": "0.0.1",
+  "name": "@rooney-and-shadows/ng-commons",
+  "version": "1.0.0",
   "peerDependencies": {
-    "@angular/common": "^12.0.2",
-    "@angular/core": "^12.0.2"
+    "@angular/common": "~13.2.2",
+    "@angular/core": "~13.2.2",
+    "@angular/material": "~13.2.2",
+    "@angular/router": "~13.2.2",
+    "@angular/cdk": "~13.2.2",
+    "@ngx-translate/core": "^14.0.0"
+  },
+  "optionalDependencies": {
+    "@fortawesome/angular-fontawesome": "^0.9.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@angular/material-moment-adapter": "^13.2.3",
+    "ngx-daterangepicker-material": "^4.0.1",
+    "moment": "^2.29.1"
   },
   "dependencies": {
     "tslib": "^2.1.0"

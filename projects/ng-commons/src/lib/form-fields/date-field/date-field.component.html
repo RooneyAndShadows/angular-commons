@@ -1,0 +1,20 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+<mat-form-field class="w-100" [class.no-error]="!showError"
+                [floatLabel]="placeholder !== null ? 'auto': 'never'" [class.no-label]="placeholder === null">
+
+  <input matInput [matDatepicker]="picker"
+         [required]="required" [ngModel]="dateValue" value="{{ dateValue.format('DD/MM/YYYY') }}"
+         (dateChange)="internalChangeValue($event.value.toDate())"
+         (click)="picker.open()" readonly
+         [name]="name" [placeholder]="placeholder" #input="ngModel" (touchend)="propagateTouch(this.value)">
+  <mat-datepicker #picker></mat-datepicker>
+
+  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon" class="ml-2 mr-3" matPrefix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ml-3 mr-2" matSuffix></fa-icon>
+
+  <mat-error *ngIf="showError && initialized && input.touched">
+    <span *ngIf="input.errors && input.errors.required">
+      {{ errorMessages.required | default: placeholder + ' is required.' }}
+    </span>
+  </mat-error>
+</mat-form-field>

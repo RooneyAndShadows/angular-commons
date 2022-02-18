@@ -1,0 +1,15 @@
+.color {
+  cursor: pointer;
+  color: grey;
+  border-radius: 5px;
+  height: 35px !important;
+  width: 35px !important;
+  &:hover {
+    color: black;
+    border-color: darkgrey !important;
+  }
+}
+
+mat-chip-list {
+  margin: 5px;
+}

@@ -1,0 +1,23 @@
+h3 {
+  margin-bottom: 20px
+}
+
+.col-md-4 {
+  padding: 25px;
+  text-align: center;
+  text-transform: uppercase;
+
+  &.active {
+    color: cadetblue;
+    font-weight: bold;
+  }
+
+  &:hover {
+    outline: 1px solid aliceblue;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+}

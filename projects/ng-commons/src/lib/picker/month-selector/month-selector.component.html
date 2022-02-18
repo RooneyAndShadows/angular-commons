@@ -1,0 +1,23 @@
+<div class="d-flex flex-column w-100" *ngIf="picked_year" style="max-height: 80vh;" >
+  <h3 class="text-center">Pick a month</h3>
+  <div class="row">
+    <ng-container *ngFor="let month of MONTHS; let i = index">
+      <div class="col-md-4"
+           [class.active]="data.current_month == i+1"
+           [class.color-on-surface]="!isAllowedMonth(i)"
+           [class.color-on-background]="isAllowedMonth(i)"
+           [class.font-weight-bold]="isAllowedMonth(i)"
+           (click)="isAllowedMonth(i) && (data.current_month = i+1) && onClick()">{{month}}</div>
+    </ng-container>
+  </div>
+  <button class="mx-4 my-3" type="button" mat-raised-button i18n color="primary" (click)="picked_year = false">{{translate.getStringOrDefault('system_action_back_phrase', 'Go back')}}</button>
+</div>
+<div class="d-flex flex-column w-100" style="max-height: 80vh;"  *ngIf="!picked_year">
+  <h3 class="text-center">Pick year</h3>
+  <div class="row">
+    <ng-container *ngFor="let year of buildDateArray()">
+      <div class="col-md-4" [class.active]="data.current_year == year" (click)="selectYear(year)">{{year}}</div>
+    </ng-container>
+  </div>
+  <button class="mx-4 my-3" type="button" mat-raised-button i18n color="primary" (click)="dialogRef.close()">{{translate.getStringOrDefault('system_action_close_phrase', 'Close')}}</button>
+</div>

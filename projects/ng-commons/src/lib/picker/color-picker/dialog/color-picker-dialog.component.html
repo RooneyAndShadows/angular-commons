@@ -1,0 +1,11 @@
+<div class="row m-0 justify-content-around" >
+  <div class="col d-flex p-0 flex-grow-0" *ngFor="let color of data.allowed_colors">
+    <div class="{{color}} m-3 rounded-circle cursor-pointer border border-dark" style="height: 45px; width: 45px; border-width: 3px !important;"
+         (click)="data.color = color"
+         [class.border-dark]="color != data.color"
+         [class.border-light]="color == data.color"></div>
+  </div>
+</div>
+<div class="btn-group btn-group-sm justify-content-end d-flex flex-column mt-3">
+  <button mat-flat-button i18n color="primary" (click)="dialogRef.close(this.data.color)">Select</button>
+</div>

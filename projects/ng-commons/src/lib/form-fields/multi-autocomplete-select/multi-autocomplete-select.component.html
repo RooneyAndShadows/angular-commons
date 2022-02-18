@@ -1,0 +1,39 @@
+<mat-form-field class="w-100" [class.no-error]="!showError"
+                [floatLabel]="placeholder !== null ? 'auto': 'never'" [class.no-label]="placeholder === null">
+  <mat-label *ngIf="placeholder !== null" i18n>{{placeholder}}</mat-label>
+  <mat-chip-list #chipList>
+    <mat-chip
+      *ngFor="let label of value"
+      [selectable]="false"
+      [removable]="true"
+      (removed)="remove(label)">
+      {{label}}
+      <mat-icon matChipRemove i18n>cancel</mat-icon>
+    </mat-chip>
+    <input matInput
+           placeholder="New element..."
+           [(ngModel)]="internalModelValue"
+           (ngModelChange)="inputChange($event)"
+           #trigger="matAutocompleteTrigger"
+           #fruitInput
+           (click)="trigger.openPanel()"
+           [matAutocomplete]="auto"
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           (matChipInputTokenEnd)="addLabel($event)">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedLabel($event)">
+    <mat-option *ngFor="let label of filteredItems" [value]="label">
+      {{label}}
+    </mat-option>
+  </mat-autocomplete>
+
+  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon" class="ml-2 mr-3" matPrefix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ml-3 mr-2" matSuffix></fa-icon>
+
+  <mat-error *ngIf="showError && initialized && input.touched">
+    <span *ngIf="required && value.length <= 0" i18n>
+      {{errorMessages.required|default:placeholder + "is required."}}
+    </span>
+  </mat-error>
+</mat-form-field>
