@@ -1,15 +1,14 @@
-import {Observable, of} from 'rxjs';
-import {first} from 'rxjs/operators';
 import {BaseComponent} from '../../components/BaseComponent';
 
 export abstract class BaseListComponent extends BaseComponent {
   static get lastLoadedListComponents(): string | undefined {
     return this._lastLoadedListComponents;
   }
+
   private static _lastLoadedListComponents?: string;
 
   protected _loading = false;
-  protected _errorMessage: string  = '';
+  protected _errorMessage: string = '';
   protected _toggleList: string[] = [];
   protected _processing = false;
   private _toggleWorkingList: string[] = [];
@@ -34,8 +33,8 @@ export abstract class BaseListComponent extends BaseComponent {
     super();
   }
 
-  internalOnInit() {
-    super.internalOnInit();
+  async internalOnInit() {
+    await super.internalOnInit();
     BaseListComponent._lastLoadedListComponents = this.constructor.name;
   }
 
@@ -69,23 +68,22 @@ export abstract class BaseListComponent extends BaseComponent {
   protected toggleNextSelectedInChain() {
     if (this._toggleWorkingList.length > 0) {
       const currentId = this._toggleWorkingList.pop();
-      this.toggleElementById(currentId as string);
+      this.toggleElementById(currentId as string).then(() => {});
     } else {
       this._processing = this._loading = false;
       this.toggleEnd();
     }
   }
 
-  public toggleElementById(currentId: string, recursive = true) {
-    const result = this.isEnabled(currentId)
-      ? this.disableById(currentId) :
-      this.enableById(currentId);
+  public async toggleElementById(currentId: string, recursive = true) {
+    const result = this.isEnabled(currentId) ?
+      this.disableById :
+      this.enableById;
 
     if (!this._processing) {
       this.startProcessing();
     }
-    result.pipe(first())
-      .subscribe(() => {
+    result(currentId).then(() => {
         this._toggleWorkingList = this._toggleWorkingList.filter(y => y !== currentId);
         if (recursive) {
           this.toggleNextSelectedInChain();
@@ -115,20 +113,20 @@ export abstract class BaseListComponent extends BaseComponent {
     }, 100);
   }
 
-  protected enableById(id: string): Observable<void> {
-    return of();
+  protected async enableById(id: string): Promise<void> {
+    return new Promise((resolve) => resolve());
   }
 
-  protected disableById(id: string): Observable<void> {
-    return of();
+  protected async disableById(id: string): Promise<void> {
+    return new Promise((resolve) => resolve());
   }
 
-  protected enableAllById(ids: string[]): Observable<void> {
-    return of();
+  protected async enableAllById(ids: string[]): Promise<void> {
+    return new Promise((resolve) => resolve());
   }
 
-  protected disableAllById(ids: string[]): Observable<void> {
-    return of();
+  protected async disableAllById(ids: string[]): Promise<void> {
+    return new Promise((resolve) => resolve());
   }
 
   protected isEnabled(id: string): boolean {

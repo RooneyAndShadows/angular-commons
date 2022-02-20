@@ -3,7 +3,7 @@ import {first} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {isPlatformBrowser} from '@angular/common';
 import {AfterViewInit, ChangeDetectorRef, Directive, Inject, PLATFORM_ID} from '@angular/core';
-import {EndlessScrollListCacheService} from '../../services/EndlessScrollListCacheService';
+import {EndlessScrollListCacheService} from '../services/EndlessScrollListCacheService';
 import {WindowRef} from '../../utils/WindowRef';
 
 @Directive()
@@ -30,7 +30,7 @@ export abstract class EndlessScrollListComponent<DataType extends object> extend
 
   scrollEvent = (event: any): void => {
     this.cacheProvider.getCacheForView(this.viewName()).scroll = event.target.scrollingElement.scrollTop;
-  }
+  };
 
   protected constructor(protected readonly changeDetection: ChangeDetectorRef,
                         @Inject(PLATFORM_ID) protected readonly platformId: object,
@@ -41,8 +41,9 @@ export abstract class EndlessScrollListComponent<DataType extends object> extend
   }
 
   ngAfterViewInit(): void {
-    if (this.loadScroll)
-      window.scroll({top:this.cacheProvider.getCacheForView(this.viewName()).scroll,left: 0,behavior: 'auto'});
+    if (this.loadScroll) {
+      window.scroll({top: this.cacheProvider.getCacheForView(this.viewName()).scroll, left: 0, behavior: 'auto'});
+    }
   }
 
   ngOnDestroy() {
@@ -50,8 +51,8 @@ export abstract class EndlessScrollListComponent<DataType extends object> extend
     window.removeEventListener('scroll', this.scrollEvent, true);
   }
 
-  internalOnInit() {
-    super.internalOnInit();
+  async internalOnInit() {
+    await super.internalOnInit();
     this.windowRef.nativeWindow.addEventListener('scroll', this.scrollEvent, true);
   }
 
@@ -66,8 +67,9 @@ export abstract class EndlessScrollListComponent<DataType extends object> extend
     } else {
       this._data = data;
       this.currentPage = 0;
-      if (forceClearCache)
+      if (forceClearCache) {
         this.cacheProvider.clear(this.viewName());
+      }
       [this.cacheProvider.getCacheForView(this.viewName()).currentPage,
         this.cacheProvider.getCacheForView(this.viewName()).data,
         this.cacheProvider.getCacheForView(this.viewName()).filters] = [this.currentPage, this._data, this.pullFiltersToCache()];
@@ -77,47 +79,46 @@ export abstract class EndlessScrollListComponent<DataType extends object> extend
     this.changeDetection.markForCheck();
   }
 
-  public onScroll(): void {
+  public async onScroll(): Promise<void> {
     if (!this._hasMore) {
       return;
     }
     this.cacheProvider.getCacheForView(this.viewName()).currentPage = this.currentPage = this.currentPage + 1;
     this._loadingMoreData = true;
-    this.loadPage(this.itemsPerPage, this.currentPage * this.itemsPerPage)
-      .pipe(first())
-      .subscribe(value => {
-        if (value.length > 0) {
-          this.cacheProvider.getCacheForView(this.viewName()).data = this._data = this.mergeData(this._data, value);
-        } else {
-          this.cacheProvider.getCacheForView(this.viewName()).currentPage = this.currentPage = this.currentPage - 1;
-          this._hasMore = false;
-        }
-        this._loadingMoreData = false;
-        this.changeDetection.markForCheck();
-      });
+    const value = await this.loadPage(this.itemsPerPage, this.currentPage * this.itemsPerPage);
+
+    if (value.length > 0) {
+      this.cacheProvider.getCacheForView(this.viewName()).data = this._data = this.mergeData(this._data, value);
+    } else {
+      this.cacheProvider.getCacheForView(this.viewName()).currentPage = this.currentPage = this.currentPage - 1;
+      this._hasMore = false;
+    }
+    this._loadingMoreData = false;
+    this.changeDetection.markForCheck();
   }
 
-  goToTop(): void {
+  async goToTop(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
       this.windowRef.nativeWindow.scroll(0, 0);
     }
     this._data = [];
     this._hasMore = true;
     this.currentPage = -1;
-    this.onScroll();
+    return this.onScroll();
   }
 
   protected mergeData(currentData: DataType[], newData: DataType[]): DataType[] {
     return [...this._data, ...newData];
   }
 
-  protected loadFiltersFromCache(filters: any[]): void {}
+  protected loadFiltersFromCache(filters: any[]): void {
+  }
 
   protected pullFiltersToCache(): any[] {
     return [];
   }
 
-  protected abstract loadPage(take: number, skip: number): Observable<DataType[]>;
+  protected abstract loadPage(take: number, skip: number): Promise<DataType[]>;
 }
 
 

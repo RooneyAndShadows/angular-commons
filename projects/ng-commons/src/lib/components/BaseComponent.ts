@@ -4,9 +4,15 @@ import {ObjectColletionUtils} from '../utils/ObjectColletionUtils';
 
 @Directive()
 export class BaseComponent implements OnInit, OnDestroy {
-  private _collectionUtils: ObjectColletionUtils = ObjectColletionUtils.build();
+  protected readonly _collectionUtils: ObjectColletionUtils = ObjectColletionUtils.build();
   protected readonly now = new Date();
   protected readonly subscriptionList: Subscription[] = [];
+
+  private _initialized: boolean = false;
+
+  get initialized(): boolean {
+    return this._initialized;
+  }
 
   constructor() { }
 
@@ -18,11 +24,12 @@ export class BaseComponent implements OnInit, OnDestroy {
     window.location.reload();
   }
 
-  ngOnInit(): void {
-    this.internalOnInit();
+  async ngOnInit(): Promise<void> {
+    await this.internalOnInit();
+    this._initialized = true;
   }
 
-  internalOnInit(): void {}
+  async internalOnInit(): Promise<void> {}
 
   ngOnDestroy(): void {
     this.subscriptionList.forEach(x => x.unsubscribe());

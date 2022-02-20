@@ -11,6 +11,7 @@ export * from './lib/form-fields/select-field/select-field.component';
 export * from './lib/form-fields/multi-autocomplete-select/multi-autocomplete-select.component';
 export * from './lib/forms/base/BaseActiveFormComponent';
 export * from './lib/lists/base/BaseListComponent';
+export * from './lib/components/BaseComponent';
 export * from './lib/lists/base/EndlessScrollListComponent';
 export * from './lib/lists/basic-list-header/basic-list-header.component';
 export * from './lib/picker/icon-picker/picker/icon-picker.component';
@@ -33,7 +34,7 @@ export * from './lib/form-fields/number-text-field/extensions/custom-min-number-
 export * from './lib/forms/directives/commons-form.directive';
 
 /*SERVICES*/
-export * from './lib/services/EndlessScrollListCacheService';
+export * from './lib/lists/services/EndlessScrollListCacheService';
 export * from './lib/services/LocaleStringsService';
 export * from './lib/interceptors/DateDeserializerInterceptor';
 
