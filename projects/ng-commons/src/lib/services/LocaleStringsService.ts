@@ -27,7 +27,7 @@ export class LocaleStringsService {
     return this.locales.currentLang;
   }
 
-  public getString(name: string): string {
+  public getString(name: string | string[]): string | any {
     return this.locales.instant(name);
   }
 
