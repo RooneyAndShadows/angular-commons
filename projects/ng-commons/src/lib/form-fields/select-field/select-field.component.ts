@@ -21,7 +21,6 @@ import {IconProp} from '@fortawesome/fontawesome-svg-core';
 })
 export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
   @Input() allowedValues: SelectElement[] = [];
-  @Input() value?: string;
   @Input() placeholder: string = '';
   @Output() modelChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -35,6 +34,8 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
 
   selected?: FormControl = undefined;
   changeSubscription?: Subscription;
+  private value?: string;
+  private pendingValue?: any;
 
   propagateChange = (_: any) => {};
   propagateTouch = (_: any) => {};
@@ -58,10 +59,18 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
   }
 
   writeValue(obj: any): void {
-    if (typeof obj === 'undefined' || obj === null || this.allowedValues.map(x => x.value.toString()).indexOf(obj.toString()) > -1) {
-      this.value = obj;
-      this.selected?.setValue(obj?.toString());
+    this.pendingValue = obj;
+    if (this.selected === undefined)
+      return;
+    this.commitPendingValue();
+  }
+
+  private commitPendingValue() {
+    if (typeof this.pendingValue === 'undefined' || this.pendingValue === null || this.allowedValues.map(x => x.value.toString()).indexOf(this.pendingValue.toString()) > -1) {
+      this.value = this.pendingValue;
+      this.selected?.setValue(this.pendingValue?.toString());
     }
+    this.pendingValue = undefined;
   }
 
   markAsTouched(): void {
@@ -83,10 +92,16 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
     this.selected = new FormControl(undefined, this.required ? [
       Validators.required,
     ] : []);
+    if (this.value !== this.pendingValue)
+      this.commitPendingValue();
     this.changeSubscription = this.selected.valueChanges.subscribe(value1 => {
       this.value = value1;
       this.propagateChange(this.value);
     });
+  }
+
+  touchEnded() {
+    this.propagateTouch(this.value);
   }
 }
 

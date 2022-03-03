@@ -9,6 +9,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {LoadingComponent} from './components/loading/loading.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {LoadingOverlayComponent} from './components/loading-overlay/loading-overlay.component';
+import {TabViewItemComponent} from "./components/tab-view/tab-view-item.component";
+import {TabViewComponent} from "./components/tab-view/tab-view.component";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -17,13 +20,16 @@ import {LoadingOverlayComponent} from './components/loading-overlay/loading-over
     ReplacePipe,
     ConfirmationDialogComponent,
     LoadingComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    TabViewItemComponent,
+    TabViewComponent
   ],
   imports: [
     CommonModule,
     TranslateModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FontAwesomeModule
   ],
   exports: [
     CeilPipe,
@@ -31,7 +37,9 @@ import {LoadingOverlayComponent} from './components/loading-overlay/loading-over
     ReplacePipe,
     ConfirmationDialogComponent,
     LoadingComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    TabViewItemComponent,
+    TabViewComponent
   ]
 })
 export class NgCommonsModule {

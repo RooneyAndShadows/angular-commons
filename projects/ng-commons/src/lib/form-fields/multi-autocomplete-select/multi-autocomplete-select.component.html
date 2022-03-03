@@ -1,6 +1,6 @@
 <mat-form-field class="w-100" [class.no-error]="!showError"
                 [floatLabel]="placeholder !== null ? 'auto': 'never'" [class.no-label]="placeholder === null">
-  <mat-label *ngIf="placeholder !== null" i18n>{{placeholder}}</mat-label>
+  <mat-label *ngIf="placeholder !== null" >{{placeholder}}</mat-label>
   <mat-chip-list #chipList>
     <mat-chip
       *ngFor="let label of value"
@@ -8,7 +8,7 @@
       [removable]="true"
       (removed)="remove(label)">
       {{label}}
-      <mat-icon matChipRemove i18n>cancel</mat-icon>
+      <mat-icon matChipRemove >cancel</mat-icon>
     </mat-chip>
     <input matInput
            placeholder="New element..."
@@ -28,11 +28,11 @@
     </mat-option>
   </mat-autocomplete>
 
-  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon" class="ml-2 mr-3" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ml-3 mr-2" matSuffix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon" class="ms-2 me-3" matPrefix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matSuffix></fa-icon>
 
   <mat-error *ngIf="showError && initialized && input.touched">
-    <span *ngIf="required && value.length <= 0" i18n>
+    <span *ngIf="required && value.length <= 0" >
       {{errorMessages.required|default:placeholder + "is required."}}
     </span>
   </mat-error>

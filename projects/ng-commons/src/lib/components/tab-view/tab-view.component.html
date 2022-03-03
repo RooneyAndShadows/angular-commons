@@ -1,0 +1,13 @@
+<ul class="nav nav-pills mb-3">
+  <li class="nav-item" *ngFor="let tabItem of tabItems; let i = index">
+    <a class="nav-link" [class.active]="selectedTab == i" (click)="selectedTab = i">
+      <fa-icon *ngIf="tabItem.icon !== undefined" [icon]="tabItem.icon" class="me-2"></fa-icon>
+      <span>{{tabItem.title}}</span>
+    </a>
+  </li>
+</ul>
+<div #container *ngFor="let tabItem of tabItems; let i = index">
+  <ng-container *ngIf="selectedTab == i">
+    <ng-container *ngTemplateOutlet="tabItem.implicitContent"></ng-container>
+  </ng-container>
+</div>

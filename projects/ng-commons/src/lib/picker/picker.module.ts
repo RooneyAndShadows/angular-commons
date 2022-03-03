@@ -28,7 +28,8 @@ import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
     FontAwesomeModule,
     MatButtonModule,
     MatIconModule,
-    NgxDaterangepickerMd
+    NgxDaterangepickerMd,
+
   ],
   exports: [
     NgCommonsModule,

@@ -1,13 +1,13 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <mat-form-field class="w-100">
   <mat-select *ngIf="selected != null" placeholder="{{placeholder}}" [formControl]="selected" [required]="required"
-              (touchend)="propagateTouch(this.value)">
+              (touchend)="touchEnded()">
     <mat-option *ngFor="let item of allowedValues" [value]="item.value">
       {{item.title}}
     </mat-option>
   </mat-select>
-  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix" [icon]="icon" class="mr-3 ml-2" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ml-3 mr-2" matSuffix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix" [icon]="icon" class="me-3 ms-2" matPrefix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matSuffix></fa-icon>
   <mat-error *ngIf="selected?.touched && !selected?.valid">
     <span *ngIf="selected !== undefined && selected.errors !== null && selected.errors.required">
       {{ errorMessages.required | default: placeholder + ' is required.' }}

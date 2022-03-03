@@ -11,7 +11,6 @@ export abstract class BaseListComponent extends BaseComponent {
   protected _errorMessage: string = '';
   protected _toggleList: string[] = [];
   protected _processing = false;
-  private _toggleWorkingList: string[] = [];
 
   get toggleList(): string[] {
     return this._toggleList;
@@ -58,59 +57,48 @@ export abstract class BaseListComponent extends BaseComponent {
     }
   }
 
-  public toggleSelectedInChain() {
+  public toggleSelected(onSuccess?: () => void, onFailed?: (partialSuccess: boolean, error: any) => void) {
+    if (this.processing)
+      return;
     if (this.toggleList.length > 0) {
-      this.startProcessing();
-      this.toggleNextSelectedInChain();
+      this.processingStart();
+      const disabled = this._toggleList.filter(x => !this.isEnabled(x));
+      const enabled = this._toggleList.filter(x => this.isEnabled(x));
+
+      this.disableAllById(enabled).then(() => {
+        this._toggleList = disabled;
+        this.enableAllById(disabled).then(() => {
+          this._toggleList = [];
+          if (onSuccess !== undefined) onSuccess();
+        }).catch(reason => {
+          this.processingFailed(reason);
+          if (onFailed !== undefined) onFailed(true, reason);
+        }).finally(() => this.processingEnd());
+      }).catch(reason => {
+        this.processingEnd();
+        this.processingFailed(reason);
+        if (onFailed !== undefined) onFailed(false, reason);
+      });
     }
   }
 
-  protected toggleNextSelectedInChain() {
-    if (this._toggleWorkingList.length > 0) {
-      const currentId = this._toggleWorkingList.pop();
-      this.toggleElementById(currentId as string).then(() => {});
-    } else {
-      this._processing = this._loading = false;
-      this.toggleEnd();
-    }
-  }
+  public async toggleElementById(currentId: string, onSuccess?: () => void, onFailed?: (reason: any) => void) {
+    if (this.processing)
+      return;
 
-  public async toggleElementById(currentId: string, recursive = true) {
     const result = this.isEnabled(currentId) ?
       this.disableById :
       this.enableById;
 
     if (!this._processing) {
-      this.startProcessing();
+      this.processingStart();
     }
     result(currentId).then(() => {
-        this._toggleWorkingList = this._toggleWorkingList.filter(y => y !== currentId);
-        if (recursive) {
-          this.toggleNextSelectedInChain();
-        } else {
-          this._processing = this._loading = false;
-          this.toggleEnd();
-        }
-      }, error => this.failedChainToggle(currentId, error));
-  }
-
-  protected failedChainToggle(currentId: string, error?: string) {
-    if (error !== undefined) {
-      console.log(error);
-    }
-    this._loading = false;
-    this._toggleWorkingList.push(currentId);
-    alert('Failed to delete selected categories! Id: ' + currentId);
-  }
-
-  private startProcessing() {
-    this._processing = true;
-    this._toggleWorkingList = [...this._toggleList];
-    setTimeout(() => {
-      if (this._processing) {
-        this._loading = true;
-      }
-    }, 100);
+      if (onSuccess !== undefined) onSuccess();
+    }, error => {
+      this.processingFailed(error);
+      if (onFailed !== undefined) onFailed(error);
+    }).finally(() => this.processingEnd());
   }
 
   protected async enableById(id: string): Promise<void> {
@@ -133,8 +121,23 @@ export abstract class BaseListComponent extends BaseComponent {
     return true;
   }
 
-  protected toggleEnd(): void {
-    this._toggleList = this._toggleWorkingList;
+  protected processingEnd(): void {
+    this._processing = this._loading = false;
   }
 
+  protected processingFailed(error?: string) {
+    if (error !== undefined) {
+      console.log(error);
+    }
+  }
+
+  private processingStart() {
+    this._processing = true;
+
+    setTimeout(() => {
+      if (this._processing) {
+        this._loading = true;
+      }
+    }, 100);
+  }
 }

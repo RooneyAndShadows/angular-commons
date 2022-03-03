@@ -1,0 +1,345 @@
+@import "mixin";
+@import "controls/inputs";
+@import "controls/pickers";
+@import "colors";
+
+.dark-theme {
+  @import "theming/dark_theme";
+
+  @include themed_styles(
+      $dark_color_on_primary,
+      $dark_color_on_surface,
+      $dark_color_on_error,
+      $dark_color_on_background,
+      $dark_color_on_secondary,
+      $dark_surface,
+      $dark_background,
+      $dark_background_selected,
+      $dark_primary,
+      $dark_primary_dark,
+      $dark_primary_alpha,
+      $dark_secondary,
+      $dark_secondary_variant,
+      $dark_accent,
+      $dark_success,
+      $dark_error,
+      $dark_warning,
+      $dark_tab_selected,
+      $dark_tab_background,
+      $dark_action_bar_background
+  );
+
+  @include input_theming_styles(
+      $dark_surface,
+      $dark_color_on_surface,
+      $dark_color_on_background,
+      $dark_accent,
+      $dark_error,
+  );
+}
+
+.light-theme {
+  @import "theming/light_theme";
+
+  @include themed_styles(
+      $light_color_on_primary,
+      $light_color_on_surface,
+      $light_color_on_error,
+      $light_color_on_background,
+      $light_color_on_secondary,
+      $light_surface,
+      $light_background,
+      $light_background_selected,
+      $light_primary,
+      $light_primary_dark,
+      $light_primary_alpha,
+      $light_secondary,
+      $light_secondary_variant,
+      $light_accent,
+      $light_success,
+      $light_error,
+      $light_warning,
+      $light_tab_selected,
+      $light_tab_background,
+      $light_action_bar_background
+  );
+
+  @include input_theming_styles(
+      $light_surface,
+      $light_color_on_surface,
+      $light_color_on_background,
+      $light_accent,
+      $light_error,
+  );
+}
+
+button:focus {
+  outline: 0 solid transparent;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.font-weight-bolder {
+  font-weight: 800 !important;
+}
+
+.mat-step-icon {
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.mat-step-text-label {
+  font-size: 16px;
+}
+
+.mat-stepper-vertical-line::before {
+  left: 2px !important;
+}
+
+.mat-step-header {
+  background: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+.ngx-charts {
+  .x.axis .gridline-path-vertical {
+    display: none;
+  }
+
+  .y.axis .gridline-path-horizontal {
+    stroke-opacity: 0.4;
+  }
+
+  .area {
+    stroke-width: 3px;
+  }
+}
+
+.nav-pills {
+  .nav-link {
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 10px;
+
+    &.active {
+      cursor: default;
+    }
+  }
+}
+
+
+
+.ngx-charts {
+  .area[fill="rgba(109,179,63,0.75)"] {
+    stroke: #8ad655;
+    fill: rgba(127, 206, 76, 0.65);
+  }
+
+  .area[fill="rgba(230,126,34,0.75)"] {
+    stroke: #ff9c45;
+    fill: rgba(230,126,34,0.65);
+  }
+}
+
+.mat-progress-bar-fill::after {
+  background-color: #6db33f;
+}
+
+.mat-progress-bar.mat-warn .mat-progress-bar-fill::after {
+  background-color: #e67e22;
+}
+
+.mat-progress-bar .mat-progress-bar-buffer {
+  background-color: #5C636A;
+}
+
+.mat-stepper-vertical-line::before {
+  border-left-color: white;
+}
+
+.advanced-pie-legend-wrapper {
+  padding: 0 20px;
+}
+
+.pie-label {
+  padding: 10px;
+  font-size: 14px !important;
+}
+
+ngx-charts-pie-chart {
+  width: 100%;
+}
+
+.mat-progress-spinner,
+.mat-progress-spinner svg {
+  width: 35px !important;
+  height: 35px !important;
+}
+
+textarea[matInput] {
+  min-height: 120px;
+}
+
+.no-label .custom-control-label {
+  position: absolute;
+}
+
+mat-chip {
+  mat-icon {
+    //font-size: 18px !important
+    height: auto !important;
+    width: auto !important;
+    margin-left: 1px;
+  }
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.mat-vertical-content-container {
+  .mat-vertical-content {
+    padding-bottom: 0;
+  }
+}
+
+.user-select-none {
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}
+
+button > mat-icon.mat-icon {
+  height: 17px;
+  width: 17px;
+  font-size: 17px;
+  margin: 0 3px 0 0;
+}
+
+.cdk-overlay-pane.bg-transparent {
+  .mat-dialog-container {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
+.mat-card {
+  .ngx-charts-outer {
+    width: 100% !important;
+    position: relative;
+  }
+  .ngx-charts {
+    float: none;
+    width: 100%;
+  }
+}
+
+.mat-menu-content {
+  padding: 0 !important;
+}
+
+.mat-menu-panel {
+  max-width: 430px !important;
+}
+
+.dialog-responsive {
+  width: 40%;
+}
+
+@media only screen and (max-width: 760px) {
+  .dialog-responsive {
+    width: 90%;
+  }
+}
+
+.mat-list-base .mat-list-item.mat-list-item-with-avatar,
+.mat-list-base .mat-list-item {
+  height: auto !important;
+  min-height: 56px;
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+
+  .mat-list-item-content {
+    width: 100%;
+  }
+
+}
+
+.mat-expansion-panel-header {
+  height: inherit !important;
+
+  &:hover {
+    background: transparent !important;
+  }
+}
+
+.mat-expansion-panel-body {
+  padding: 0 10px !important;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner .8s linear infinite;
+}
+
+input:-webkit-autofill:disabled {
+  -webkit-text-fill-color: black !important;
+}
+
+.pulse {
+  overflow: visible;
+  position: relative;
+}
+.pulse:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: inherit;
+  border-radius: inherit;
+  transition: opacity .3s, transform .3s;
+  animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+@keyframes pulse-animation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+

@@ -23,6 +23,8 @@ export * from './lib/picker/period-selector/period-selector.component';
 export * from './lib/components/confirmation-dialog/confirmation-dialog.component';
 export * from './lib/components/loading/loading.component';
 export * from './lib/components/loading-overlay/loading-overlay.component';
+export * from './lib/components/tab-view/tab-view.component';
+export * from './lib/components/tab-view/tab-view-item.component';
 
 /*PIPES*/
 export {CeilPipe} from './lib/pipe/CeilPipe';
@@ -37,6 +39,7 @@ export * from './lib/forms/directives/commons-form.directive';
 export * from './lib/lists/services/EndlessScrollListCacheService';
 export * from './lib/services/LocaleStringsService';
 export * from './lib/interceptors/DateDeserializerInterceptor';
+export * from './lib/services/ThemeService';
 
 /*UTILS*/
 export * from './lib/utils/WindowRef';

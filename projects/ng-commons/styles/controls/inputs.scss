@@ -1,0 +1,117 @@
+@mixin input_theming_styles(
+  $surface,
+  $color_on_surface,
+  $color_on_background,
+  $accent,
+  $error
+) {
+  .mat-form-field {
+    .fa {
+      color: $color_on_surface;
+    }
+
+    .mat-form-field-flex, .mat-select-value-text {
+      background-color: $surface;
+      color: $color_on_background;
+    }
+
+    .mat-form-field-label {
+      color: $color_on_surface;
+
+      .mat-form-field-required-marker {
+        color: $error;
+      }
+    }
+
+    .mat-form-field-underline,
+    .mat-form-field-underline *, {
+      background-color: $color_on_surface;
+    }
+
+    mat-error {
+      color: $error;
+    }
+
+    &.mat-focused {
+      fa-icon {
+        color: $accent;
+      }
+
+      .mat-form-field-underline,
+      .mat-form-field-underline *, {
+        background-color: $accent;
+      }
+    }
+
+    &.mat-form-field-invalid {
+      .mat-form-field-label {
+        color: $error;
+      }
+
+      .mat-form-field-underline,
+      .mat-form-field-underline *, {
+        background-color: $error;
+      }
+    }
+
+    input, select, textarea {
+      caret-color: $accent;
+    }
+  }
+}
+
+.mat-form-field {
+  .mat-form-field-flex {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  fa-icon {
+    font-size: 20px;
+  }
+
+  input {
+    background: transparent !important;
+  }
+
+  &:not(.multi) .mat-form-field-flex {
+    height: 58px;
+  }
+
+  &:not(.mat-form-field-should-float) {
+    .mat-form-field-infix {
+      border-top: 0;
+    }
+  }
+
+  &.no-label {
+    .mat-form-field-flex {
+      height: auto !important;
+    }
+
+    .mat-form-field-infix {
+      padding: 0;
+    }
+  }
+
+  &.no-error {
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-form-field-underline {
+      bottom: 0;
+    }
+  }
+
+  &.mat-form-field-should-float {
+    .mat-form-field-infix {
+      padding: 3px 0 0;
+    }
+  }
+}
+

@@ -1,29 +1,29 @@
 <div class="d-flex flex-row justify-content-between">
   <div class="mb-0 d-flex flex-row">
     <button *ngIf="createLink != undefined" [disabled]="processing" mat-icon-button color="primary"
-            [routerLink]="createLink" class="mr-2 d-flex flex-row align-items-center justify-content-around">
+            [routerLink]="createLink" class="me-2 d-flex flex-row align-items-center justify-content-around">
       <fa-icon icon="plus" class="color-on-background"></fa-icon>
     </button>
     <button *ngIf="refreshLink != undefined" [disabled]="processing" mat-icon-button color="basic"
-            [routerLink]="refreshLink" class="mr-2 d-flex flex-row align-items-center justify-content-around">
+            [routerLink]="refreshLink" class="me-2 d-flex flex-row align-items-center justify-content-around">
       <fa-icon icon="sync" class="color-on-background"></fa-icon>
     </button>
     <button [disabled]="processing" *ngIf="selectAll.observers.length > 0" mat-icon-button color="basic"
-            class="mr-2 d-flex flex-row align-items-center justify-content-around"
+            class="me-2 d-flex flex-row align-items-center justify-content-around"
             (click)="selectAll.emit()">
       <fa-icon [icon]="['fas', 'check-circle']" class="color-on-background-1"></fa-icon>
     </button>
     <button [disabled]="processing" *ngIf="deselectAll.observers.length > 0" mat-icon-button color="basic"
-            class="mr-2 d-flex flex-row align-items-center justify-content-around" (click)="deselectAll.emit()">
+            class="me-2 d-flex flex-row align-items-center justify-content-around" (click)="deselectAll.emit()">
       <fa-icon [icon]="['far', 'check-circle']" class="color-on-background"></fa-icon>
     </button>
     <button [disabled]="processing" *ngIf="deleteSelected.observers.length > 0" mat-icon-button color="basic"
-            class="mr-2 d-flex flex-row align-items-center justify-content-around"
+            class="me-2 d-flex flex-row align-items-center justify-content-around"
             (click)="deleteSelected.emit()">
       <fa-icon icon="trash" class="color-on-background"></fa-icon>
     </button>
     <button [disabled]="processing" *ngIf="hideSelected.observers.length > 0" mat-icon-button color="basic"
-            class="mr-2 d-flex flex-row align-items-center justify-content-around"
+            class="me-2 d-flex flex-row align-items-center justify-content-around"
             (click)="hideSelected.emit()">
       <fa-icon icon="eye-slash" class="color-on-background"></fa-icon>
     </button>

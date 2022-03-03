@@ -12,27 +12,23 @@ import {IconLookup, IconProp} from '@fortawesome/fontawesome-svg-core';
 })
 export class IconPickerComponent implements OnInit {
   //@ts-ignore
-  @Input() icon: string;
+  @Input() icon: IconProp;
   @Input() color = 'green';
-  @Output() iconChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() iconChange: EventEmitter<IconProp> = new EventEmitter<IconProp>();
 
-  @Input() allowedIcons: string[] = [];
+  @Input() allowedIcons: IconProp[] = [];
   @Input() phrase: string = 'Pick an icon';
-
-  iconProp?: IconProp;
 
   //@ts-ignore
   @ViewChild('form', {static: true}) private ngForm: NgForm;
 
   constructor(public dialog: MatDialog, public detector: ChangeDetectorRef) { }
 
-  ngOnInit() {
-    this.iconProp = {prefix: 'fas', iconName: this.icon} as IconLookup;
-  }
+  ngOnInit() {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(IconPickerDialogComponent, {
-      maxWidth: '400px',
+      maxWidth: '600px',
       width: '90%',
       maxHeight: '90vh',
       data: new IconPickerDialogData(this.icon, this.allowedIcons, this.color)

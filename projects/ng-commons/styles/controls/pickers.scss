@@ -1,0 +1,15 @@
+@import "../theming/dark_theme";
+.picker {
+  text-align: left;
+}
+.dark-theme {
+  .picker {
+    small {
+      color: $dark_color_on_surface;
+    }
+
+    button {
+      background-color: $dark_accent !important;
+    }
+  }
+}

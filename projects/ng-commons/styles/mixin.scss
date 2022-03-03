@@ -1,0 +1,257 @@
+@mixin themed_styles(
+  $color_on_primary,
+  $color_on_surface,
+  $color_on_error,
+  $color_on_background,
+  $color_on_secondary,
+  $surface,
+  $background,
+  $background_selected,
+  $primary,
+  $primary_dark,
+  $primary_alpha,
+  $secondary,
+  $secondary_variant,
+  $accent,
+  $success,
+  $error,
+  $warning,
+  $tab_selected,
+  $tab_background,
+  $action_bar_background,
+) {
+  .bg-surface {
+    background-color: $tab_selected;
+  }
+
+  .bg-background,
+  &.bg-background{
+    background-color: $background;
+  }
+
+  .bg-background-selected {
+    background-color: $background_selected;
+  }
+
+  .bg-primary {
+    background-color: $primary;
+  }
+
+  .bg-accent {
+    background-color: $primary;
+  }
+
+  .color-on-background {
+    color: $color_on_background !important;
+  }
+
+  .color-on-surface {
+    color: $color_on_surface !important;
+  }
+
+  .color-on-primary {
+    color: $color_on_primary !important;
+  }
+
+  .color-warning {
+    color: $warning;
+  }
+
+  .color-success {
+    color: $success;
+  }
+
+  .color-error {
+    color: $error !important;
+  }
+
+  .border-accent {
+    border-color: $accent !important;
+  }
+
+  .border-primary {
+    border-color: $primary !important;
+  }
+
+  button[color=primary], button.mat-primary {
+    background-color: $primary !important;
+    border-color: $primary !important;
+
+    &:hover {
+      background-color: $accent !important;
+    }
+  }
+
+  button[color=warn], button.mat-warn {
+    background-color: $warning !important;
+    border-color: $warning !important;
+
+    &:hover {
+      background-color: $warning !important;
+    }
+  }
+
+  button[color=basic], button.mat-basic {
+    background: $tab_background;
+    color: $color_on_background;
+
+    &:hover {
+      background: $tab-selected;
+    }
+  }
+
+  .container button.mat-button-base:not([color]) {
+    background: $color_on_background;
+    color: $background !important;
+
+    svg {
+      color: $background !important;
+    }
+
+    &:hover {
+      color: $color_on_background !important;
+
+      svg {
+        color: $color_on_background !important;
+      }
+
+      background: $background;
+    }
+  }
+
+  hr {
+    border-color: $primary_alpha;
+  }
+
+  .mat-card {
+    border-color: $background_selected !important;
+    background-color: $surface;
+
+    &.heading {
+      background-color: $tab_background;
+    }
+  }
+
+  .mat-menu-content {
+    background-color: $background;
+  }
+
+  p {
+    color: $color_on_background;
+  }
+
+  .ngx-charts {
+    text {
+      fill: $color-on_background;
+    }
+  }
+
+  .mat-step-icon {
+    background-color: $primary;
+  }
+
+  .mat-dialog-container {
+    background-color: $background;
+    color: $color_on_background;
+  }
+
+  .mat-nav-list {
+    background: $surface;
+
+    a, i, fa-icon {
+      color: $color_on_background !important;
+    }
+  }
+
+  mat-card {
+    border-color: $background_selected !important;
+    background-color: $surface;
+
+    hr {
+      border-color: $background_selected;
+    }
+
+    mat-chip {
+      background-color: $accent !important;
+    }
+  }
+
+  .mat-progress-bar {
+    .mat-progress-bar-buffer {
+      background-color: $background;
+    }
+
+    &.mat-accent .mat-progress-bar-fill::after {
+      background-color: $error;
+    }
+
+    &.mat-warn .mat-progress-bar-fill::after {
+      background-color: $warning;
+    }
+
+    &.mat-primary:not(.loading-bar) {
+      .mat-progress-bar-fill::after {
+        background-color: $success;
+      }
+    }
+
+    &.mat-primary.loading-bar {
+      .mat-progress-bar-fill::after {
+        background-color: $primary;
+      }
+    }
+  }
+
+  .mat-progress-bar.mat-warn .mat-progress-bar-fill::after {
+    background-color: $warning;
+  }
+
+  .mat-progress-bar.mat-primary .mat-progress-bar-fill::after {
+    background-color: $success;
+  }
+
+  .nav-pills {
+    .nav-link {
+      color: $color_on_surface;
+      &.active {
+        color: $color_on_background;
+        fa-icon {
+          color: $accent;
+        }
+        background: $surface;
+      }
+    }
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px $surface inset !important;
+    -webkit-text-fill-color: $color_on_background !important;
+  }
+
+  .mat-menu-panel {
+    background: $background;
+  }
+
+  mat-sidenav-container {
+    background-color: $background;
+
+    mat-sidenav {
+      background-color: $surface;
+    }
+  }
+
+  mat-toolbar {
+    background-color: $action_bar_background;
+    color: $color_on_background;
+
+    .title {
+      small {
+        color: $color_on_surface;
+      }
+    }
+  }
+
+  .picker-color.selected-color {
+    border: 2px solid $color-on_background;
+  }
+}

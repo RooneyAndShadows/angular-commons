@@ -1,17 +1,20 @@
 <div class="d-flex flex-column">
-  <div class="row">
-    <ng-container *ngFor="let row of allowedIconsGrid">
-      <div class="col d-flex m-3 flex-column align-items-center"  *ngFor="let icon of row; let i = index">
-        <div *ngIf="selected !== undefined && selected.iconName === icon.iconName" class="icon-holder align-self-center rounded-circle p-2 {{data.color}} text-white d-flex rounded-left">
-          <fa-icon class="align-self-center icon align-items-center justify-content-around d-flex flex-row" [icon]="selected"></fa-icon>
-        </div>
-        <div *ngIf="selected === undefined || selected.iconName !== icon.iconName" class="icon-holder align-self-center rounded-circle p-2 d-flex rounded-left" (click)="onClick(icon)">
-          <fa-icon  class="align-self-center icon align-items-center color-on-background justify-content-around d-flex flex-row" [icon]="icon"></fa-icon>
-        </div>
+  <div class="row row-cols-4 row-cols-sm-6">
+    <div class="col d-flex p-2 flex-column align-items-center" *ngFor="let icon of data.allowed_icons; let i = index">
+      <div *ngIf="selected !== undefined && selected === icon"
+           class="icon-holder align-self-center rounded-circle p-2 {{data.color}} text-white d-flex rounded-left">
+        <fa-icon class="align-self-center icon align-items-center justify-content-around d-flex flex-row"
+                 [icon]="selected"></fa-icon>
       </div>
-    </ng-container>
+      <div *ngIf="selected === undefined || selected !== icon"
+           class="icon-holder align-self-center rounded-circle p-2 d-flex rounded-left" (click)="onClick(icon)">
+        <fa-icon
+          class="align-self-center icon align-items-center color-on-background justify-content-around d-flex flex-row"
+          [icon]="icon"></fa-icon>
+      </div>
+    </div>
   </div>
 </div>
 <div class="btn-group btn-group-sm justify-content-end d-flex flex-column mt-3">
-  <button mat-flat-button i18n color="primary" (click)="dialogRef.close(this.data.icon)">Select</button>
+  <button mat-flat-button color="primary" (click)="dialogRef.close(this.data.icon)">Select</button>
 </div>
