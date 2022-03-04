@@ -95,7 +95,7 @@ export class NumberTextFieldComponent implements BaseInputField, OnDestroy, OnIn
   }
 
   valid(): boolean {
-    return this.input.valid ?? false;
+    return (this.input.valid ?? false) || this.disabled;
   }
 
   ngAfterViewInit(): void {

@@ -3,6 +3,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {formatDate, formatNumber} from '@angular/common';
 import {LocaleStringsService} from '../../services/LocaleStringsService';
+// @ts-ignore
+import moment from 'moment';
 
 @Component({
   selector: 'app-month-selector',
@@ -10,17 +12,17 @@ import {LocaleStringsService} from '../../services/LocaleStringsService';
   styleUrls: ['./month-selector.component.scss']
 })
 export class MonthSelectorComponent  {
-  public current_date = new Date();
   public picked_year = false;
-
   public readonly MONTHS: string[] = [];
 
   constructor(
     public translate: LocaleStringsService,
     public dialogRef: MatDialogRef<MonthSelectorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MonthSelectorData) {
-    for (let i = 1; i <= 12; i++)
-      this.MONTHS.push(formatDate('01.'+formatNumber(i, 'en', '2.0-0')+'.2021', 'MMMM', this.translate.currentLanguage()))
+    for (let i = 1; i <= 12; i++) {
+      const date = moment('01.' + formatNumber(i, 'en', '2.0-0') + '.2021', 'DD.MM.YYYY')
+      this.MONTHS.push(formatDate(date.toDate(), 'MMMM', this.translate.currentLanguage()))
+    }
   }
 
   onClick(): void {
@@ -29,8 +31,8 @@ export class MonthSelectorComponent  {
 
   buildDateArray(): number[] {
     const years = [];
-    const start = this.data.current_year - 3;
-    const end = start + 5;
+    const start = this.data.current_year - 5;
+    const end = start + 10;
     for (let i = start; i <= end; i++) {
       years.push(i);
     }

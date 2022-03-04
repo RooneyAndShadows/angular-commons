@@ -9,7 +9,9 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import * as moment from 'moment/moment';
+
+// @ts-ignore
+import moment from 'moment';
 import {NG_VALUE_ACCESSOR, NgModel, ValidationErrors} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {BaseInputField} from '../base/BaseInputField';

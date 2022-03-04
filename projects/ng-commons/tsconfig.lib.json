@@ -8,10 +8,12 @@
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
       "es2018"
-    ],
+    ]
   },
   "exclude": [
     "src/test.ts",

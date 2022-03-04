@@ -1,6 +1,6 @@
 {
   "name": "@rooney-and-shadows/ng-commons",
-  "version": "1.1.9",
+  "version": "1.1.12",
   "peerDependencies": {
     "@angular/common": "~13.2.2",
     "@angular/core": "~13.2.2",
