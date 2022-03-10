@@ -12,6 +12,7 @@ import {LoadingOverlayComponent} from './components/loading-overlay/loading-over
 import {TabViewItemComponent} from "./components/tab-view/tab-view-item.component";
 import {TabViewComponent} from "./components/tab-view/tab-view.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -24,13 +25,14 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     TabViewItemComponent,
     TabViewComponent
   ],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    MatDialogModule,
-    MatProgressSpinnerModule,
-    FontAwesomeModule
-  ],
+    imports: [
+        CommonModule,
+        TranslateModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
+        FontAwesomeModule,
+        MatButtonModule
+    ],
   exports: [
     CeilPipe,
     DefaultPipe,

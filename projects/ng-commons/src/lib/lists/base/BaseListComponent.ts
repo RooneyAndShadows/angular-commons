@@ -1,4 +1,10 @@
 import {BaseComponent} from '../../components/BaseComponent';
+import {MatDialog} from "@angular/material/dialog";
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogData
+} from "../../components/confirmation-dialog/confirmation-dialog.component";
+import {first} from "rxjs/operators";
 
 export abstract class BaseListComponent extends BaseComponent {
   static get lastLoadedListComponents(): string | undefined {
@@ -55,6 +61,15 @@ export abstract class BaseListComponent extends BaseComponent {
     } else {
       this._toggleList = this._toggleList.filter(x => x !== key);
     }
+  }
+
+  public async toggleSelectedWithConfirmation(matDialog: MatDialog, data: ConfirmationDialogData, onSuccess?: () => void, onFailed?: (partialSuccess: boolean, error: any) => void) {
+    const result: boolean = await matDialog.open(ConfirmationDialogComponent, {
+      maxWidth: "500px",
+      data: data
+    }).afterClosed().pipe(first()).toPromise();
+    if (result)
+      this.toggleSelected(onSuccess, onFailed);
   }
 
   public toggleSelected(onSuccess?: () => void, onFailed?: (partialSuccess: boolean, error: any) => void) {

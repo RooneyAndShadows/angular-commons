@@ -1,1 +1,1 @@
-ng build ng-commons && cd dist/ng-commons && npm publish --registry https://verdaccio.kipo-solutions.com:8443 & cd ../../
+ng build ng-commons && cd dist/ng-commons && npm publish --access public & cd ../../
