@@ -59,13 +59,15 @@ export class MonthSelectorComponent  {
 export class MonthSelectorData {
   current_month: number;
   current_year: number;
+  showActive: boolean;
   allowedMonths?: number[];
   allowedMonthsLazy?: (number: number) => Observable<number[]>;
 
-  constructor(current_month: number, current_year: number, allowedMonths = []) {
+  constructor(current_month: number, current_year: number, allowedMonths = [], showActive = true) {
     this.current_month = current_month;
     this.current_year = current_year;
     this.allowedMonths = allowedMonths;
+    this.showActive = showActive;
   }
 }
 

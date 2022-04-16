@@ -4,9 +4,8 @@
     <ng-container *ngFor="let month of MONTHS; let i = index">
       <div class="col-md-4"
            [class.active]="data.current_month == i+1"
-           [class.color-on-surface]="!isAllowedMonth(i)"
-           [class.color-on-background]="isAllowedMonth(i)"
-           [class.font-weight-bold]="isAllowedMonth(i)"
+           [class.allowed]="isAllowedMonth(i)"
+           [class.not-allowed]="!isAllowedMonth(i)"
            (click)="isAllowedMonth(i) && (data.current_month = i+1) && onClick()">{{month}}</div>
     </ng-container>
   </div>

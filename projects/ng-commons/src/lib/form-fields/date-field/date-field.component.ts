@@ -49,6 +49,7 @@ export const MY_FORMATS = {
 })
 export class DateFieldComponent implements BaseInputField, OnDestroy, OnInit, AfterViewInit {
   @Input() value?: string;
+  @Input() dateFormat: string = 'YYYY-MM-DD HH:mm:ss';
   @Input() placeholder: string = '';
   @Output() modelChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -93,9 +94,9 @@ export class DateFieldComponent implements BaseInputField, OnDestroy, OnInit, Af
   writeValue(obj: any): void {
       this.value = obj;
       if (typeof obj !== 'undefined' && obj !== null) {
-        this.dateValue = moment(obj, 'YYYY-MM-DD HH:mm:ss');
+        this.dateValue = moment(obj, this.dateFormat);
       } else {
-        this.value = this.dateValue.format('YYYY-MM-DD HH:mm:ss');
+        this.value = this.dateValue.format(this.dateFormat);
         this.propagateChange(this.value);
       }
   }
@@ -103,7 +104,7 @@ export class DateFieldComponent implements BaseInputField, OnDestroy, OnInit, Af
   internalChangeValue(obj: any): void {
     this.value = obj;
     if (typeof obj !== 'undefined' && obj !== null) {
-      this.dateValue = moment(moment(obj).format('YYYY-MM-DD') + ' ' + this.dateValue.format('HH:mm'), 'YYYY-MM-DD HH:mm');
+      this.dateValue = moment(moment(obj).format('YYYY-MM-DD') + ' ' + this.dateValue.format('HH:mmZZ'), 'YYYY-MM-DD HH:mmZZ');
     }
     this.propagateChange(this.value);
   }
