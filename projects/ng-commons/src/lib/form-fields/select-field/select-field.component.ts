@@ -3,6 +3,7 @@ import {FormControl, NG_VALUE_ACCESSOR, ValidationErrors, Validators} from '@ang
 import {Subscription} from 'rxjs';
 import {BaseInputField} from '../base/BaseInputField';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
+import {MatFormFieldAppearance} from "@angular/material/form-field/form-field";
 
 @Component({
   selector: 'app-select-field',
@@ -31,6 +32,7 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
   @Input() disabled = false;
 
   @Input() errorMessages: {[key in SelectErrorMessages]?: string} = {};
+  @Input() appearance: MatFormFieldAppearance = 'standard'
 
   selected?: FormControl = undefined;
   changeSubscription?: Subscription;

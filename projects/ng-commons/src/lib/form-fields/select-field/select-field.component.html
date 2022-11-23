@@ -1,16 +1,19 @@
 <!--suppress HtmlFormInputWithoutLabel -->
-<mat-form-field class="w-100">
-  <mat-select *ngIf="selected != null" placeholder="{{placeholder}}" [formControl]="selected" [required]="required"
-              (touchend)="touchEnded()">
-    <mat-option *ngFor="let item of allowedValues" [value]="item.value">
-      {{item.title}}
-    </mat-option>
-  </mat-select>
-  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix" [icon]="icon" class="me-3 ms-2" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matSuffix></fa-icon>
-  <mat-error *ngIf="selected?.touched && !selected?.valid">
+<div class="w-100 text-start">
+  <label *ngIf="appearance !== 'legacy'">{{placeholder}}: <span *ngIf="required" class="text-danger">*</span></label>
+  <mat-form-field class="w-100" [class.non-legacy]="appearance !== 'legacy'" [appearance]="appearance">
+    <mat-select *ngIf="selected != null" [placeholder]="appearance === 'legacy' ? placeholder : ''" [formControl]="selected" [required]="required"
+                (touchend)="touchEnded()">
+      <mat-option *ngFor="let item of allowedValues" [value]="item.value">
+        {{item.title}}
+      </mat-option>
+    </mat-select>
+    <fa-icon *ngIf="icon !== undefined && iconPositionPrefix" [icon]="icon" class="me-3 ms-2" matPrefix></fa-icon>
+    <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matSuffix></fa-icon>
+    <mat-error *ngIf="selected?.touched && !selected?.valid">
     <span *ngIf="selected !== undefined && selected.errors !== null && selected.errors.required">
       {{ errorMessages.required | default: placeholder + ' is required.' }}
     </span>
-  </mat-error>
-</mat-form-field>
+    </mat-error>
+  </mat-form-field>
+</div>

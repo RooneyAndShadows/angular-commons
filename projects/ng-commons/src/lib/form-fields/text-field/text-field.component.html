@@ -1,35 +1,41 @@
 <!--suppress HtmlFormInputWithoutLabel -->
-<mat-form-field class="w-100"
-                [class.no-error]="!showError"
-                [class.multi]="multiline"
-                [floatLabel]="placeholder !== null ? 'auto': 'never'"
-                [class.no-label]="placeholder === null">
-  <input *ngIf="!multiline && type !== 'time'" [type]="type"
-         [email]="this.type === 'email'" [maxlength]="maxlength > 0 ? maxlength : null"
-         [minlength]="minlength > 0 ? minlength : null"
-         [required]="required" [ngModel]="value" (ngModelChange)="internalChangeValue($event)" [disabled]="disabled"
-         [name]="name" matInput [placeholder]="placeholder" #input="ngModel" (touchend)="propagateTouch(this.value)">
+<div class="w-100 text-start">
+  <label *ngIf="appearance !== 'legacy'">{{placeholder}}: <span *ngIf="required" class="text-danger">*</span></label>
+  <mat-form-field class="w-100" [class.non-legacy]="appearance !== 'legacy'"
+                  [appearance]="appearance"
+                  [class.no-error]="!showError"
+                  [class.multi]="multiline"
+                  [floatLabel]="placeholder !== null ? 'auto': 'never'"
+                  [class.no-label]="placeholder === null">
+    <input *ngIf="!multiline && type !== 'time'" [type]="type"
+           [email]="this.type === 'email'" [maxlength]="maxlength > 0 ? maxlength : null"
+           [minlength]="minlength > 0 ? minlength : null"
+           [required]="required" [ngModel]="value" (ngModelChange)="internalChangeValue($event)" [disabled]="disabled"
+           [name]="name" matInput
+           [placeholder]="appearance === 'legacy' ? placeholder : ''"
+           #input="ngModel" (touchend)="propagateTouch(this.value)">
 
-  <textarea *ngIf="multiline" [maxlength]="maxlength > 0 ? maxlength : null"
-            [minlength]="minlength > 0 ? minlength : null" [placeholder]="placeholder"
-            [required]="required" [ngModel]="value" (ngModelChange)="internalChangeValue($event)"
-            [name]="name" matInput></textarea>
+    <textarea *ngIf="multiline" [maxlength]="maxlength > 0 ? maxlength : null"
+              [minlength]="minlength > 0 ? minlength : null" [placeholder]="placeholder"
+              [required]="required" [ngModel]="value" (ngModelChange)="internalChangeValue($event)"
+              [name]="name" matInput></textarea>
 
-  <fa-icon *ngIf="icon != undefined && iconPositionPrefix " [icon]="icon" class="ms-2 me-3" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon != undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matSuffix></fa-icon>
+    <fa-icon *ngIf="icon != undefined && iconPositionPrefix " [icon]="icon" class="ms-2 me-3" matPrefix></fa-icon>
+    <fa-icon *ngIf="icon != undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matSuffix></fa-icon>
 
-  <mat-error *ngIf="showError && initialized && input.touched">
+    <mat-error *ngIf="showError && initialized && input.touched">
     <span *ngIf="input.errors && input.errors.required">
       {{ errorMessages.required | default: placeholder + ' is required.' }}
     </span>
-    <span *ngIf="input.errors && input.errors.email">
+      <span *ngIf="input.errors && input.errors.email">
        {{ errorMessages.email | default: 'Input should be a valid e-mail address.' }}
     </span>
-    <span *ngIf="input.errors && input.errors.maxlength">
+      <span *ngIf="input.errors && input.errors.maxlength">
        {{ errorMessages.maxlength | default: placeholder + ' cannot be more than ' + maxlength + ' characters long.'}}
     </span>
-    <span *ngIf="input.errors && input.errors.minlength">
+      <span *ngIf="input.errors && input.errors.minlength">
       {{ errorMessages.minlength | default: placeholder + ' cannot be less than ' + minlength + ' characters long.'}}
     </span>
-  </mat-error>
-</mat-form-field>
+    </mat-error>
+  </mat-form-field>
+</div>

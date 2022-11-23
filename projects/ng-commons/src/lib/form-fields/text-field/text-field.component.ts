@@ -2,6 +2,7 @@ import {AfterViewInit, Component, EventEmitter, forwardRef, Input, OnDestroy, On
 import {NG_VALUE_ACCESSOR, NgModel, ValidationErrors} from '@angular/forms';
 import {BaseInputField} from '../base/BaseInputField';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
+import {MatFormFieldAppearance} from "@angular/material/form-field/form-field";
 
 @Component({
   selector: 'app-text-field',
@@ -32,6 +33,7 @@ export class TextFieldComponent implements BaseInputField, OnDestroy, OnInit, Af
   @Input() iconPositionPrefix = true;
   @Input() showError = true;
   @Input() errorMessages: {[key in TextBoxErrorMessages]?: string} = {};
+  @Input() appearance: MatFormFieldAppearance = 'legacy'
 
   @Output() modelChange: EventEmitter<any> = new EventEmitter<any>();
   initialized = false;
