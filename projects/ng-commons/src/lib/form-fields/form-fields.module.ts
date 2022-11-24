@@ -15,6 +15,9 @@ import {MultiAutocompleteSelectComponent} from './multi-autocomplete-select/mult
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SliderComponent } from './slider/slider.component';
+import {NouisliderModule} from "ng2-nouislider";
+import { SliderButtonComponent } from './slider/extra/slider-button/slider-button.component';
 
 
 @NgModule({
@@ -24,7 +27,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     DateFieldComponent,
     SelectFieldComponent,
     CustomMinNumberDirective,
-    MultiAutocompleteSelectComponent
+    MultiAutocompleteSelectComponent,
+    SliderComponent,
+    SliderButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +42,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     NgCommonsModule,
     MatChipsModule,
     MatIconModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NouisliderModule
   ],
   exports: [
     TextFieldComponent,
@@ -46,7 +52,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     SelectFieldComponent,
     CustomMinNumberDirective,
     NgCommonsModule,
-    MultiAutocompleteSelectComponent
+    MultiAutocompleteSelectComponent,
+    SliderComponent
   ]
 })
 export class FormFieldsModule {

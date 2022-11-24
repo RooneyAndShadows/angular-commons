@@ -1,5 +1,5 @@
-import {Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormControl, NG_VALUE_ACCESSOR, ValidationErrors, Validators} from '@angular/forms';
+import {Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {FormControl, NG_VALUE_ACCESSOR, NgModel, ValidationErrors, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {BaseInputField} from '../base/BaseInputField';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
@@ -30,14 +30,18 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
   @Input() icon?: IconProp;
   @Input() iconPositionPrefix = true;
   @Input() disabled = false;
+  @Input() value: string = '';
+  @Input() showError = true;
 
   @Input() errorMessages: {[key in SelectErrorMessages]?: string} = {};
   @Input() appearance: MatFormFieldAppearance = 'standard'
+  initialized = false;
 
-  selected?: FormControl = undefined;
-  changeSubscription?: Subscription;
-  private value?: string;
+  public groupedValues: {[index: string]: SelectElement[]} = {};
+  public groupedValuesKeys: string[] = [];
   private pendingValue?: any;
+
+  @ViewChild(NgModel) selectbox!: NgModel;
 
   propagateChange = (_: any) => {};
   propagateTouch = (_: any) => {};
@@ -45,7 +49,7 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
   constructor() {}
 
   ngOnDestroy() {
-    this.changeSubscription?.unsubscribe();
+
   }
 
   setDisabled(value: boolean): void {
@@ -62,44 +66,54 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
 
   writeValue(obj: any): void {
     this.pendingValue = obj;
-    if (this.selected === undefined)
-      return;
     this.commitPendingValue();
+  }
+
+  internalChangeValue(obj: any): void {
+    this.pendingValue = obj;
+    this.commitPendingValue();
+    this.propagateChange(this.value);
   }
 
   private commitPendingValue() {
     if (typeof this.pendingValue === 'undefined' || this.pendingValue === null || this.allowedValues.map(x => x.value.toString()).indexOf(this.pendingValue.toString()) > -1) {
       this.value = this.pendingValue;
-      this.selected?.setValue(this.pendingValue?.toString());
     }
-    this.pendingValue = undefined;
+    this.pendingValue = '';
   }
 
   markAsTouched(): void {
-    this.selected?.markAsTouched();
+    this.selectbox.control.markAsTouched();
   }
 
   valid(): boolean {
-    return this.selected?.valid ?? false;
+    return this.selectbox.valid ?? false;
   }
 
   errors(): ValidationErrors | null {
-    return this.selected?.errors ?? null;
+    return this.selectbox.errors ?? null;
   }
 
   ngOnInit(): void {
     this.allowedValues = this.allowedValues.map(value1 => {
-      return {value: value1.value.toString(), title: value1.title};
+      return {value: value1.value.toString(), title: value1.title, group: value1.group};
     });
-    this.selected = new FormControl(undefined, this.required ? [
-      Validators.required,
-    ] : []);
+    this.allowedValues.forEach(value => {
+      const groupKey = value.group ?? '';
+      if (this.groupedValuesKeys.filter(x => x === groupKey).length === 0) {
+        this.groupedValuesKeys.push(groupKey);
+      }
+      if (typeof this.groupedValues[groupKey] === "undefined") {
+        this.groupedValues[groupKey] = [];
+      }
+      this.groupedValues[groupKey].push(value);
+    });
     if (this.value !== this.pendingValue)
       this.commitPendingValue();
-    this.changeSubscription = this.selected.valueChanges.subscribe(value1 => {
-      this.value = value1;
-      this.propagateChange(this.value);
-    });
+  }
+
+  ngAfterViewInit(): void {
+    this.initialized = true;
   }
 
   touchEnded() {
@@ -110,6 +124,7 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
 export class SelectElement {
   public value: string = '';
   public readonly title: string = '';
+  public group?: string = undefined;
 }
 
 type SelectErrorMessages = 'required';

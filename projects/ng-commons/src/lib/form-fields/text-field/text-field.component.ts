@@ -38,8 +38,7 @@ export class TextFieldComponent implements BaseInputField, OnDestroy, OnInit, Af
   @Output() modelChange: EventEmitter<any> = new EventEmitter<any>();
   initialized = false;
 
-  // @ts-ignore
-  @ViewChild(NgModel) input: NgModel;
+  @ViewChild(NgModel) input!: NgModel;
 
   constructor() {}
 

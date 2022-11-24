@@ -2,16 +2,26 @@
 <div class="w-100 text-start">
   <label *ngIf="appearance !== 'legacy'">{{placeholder}}: <span *ngIf="required" class="text-danger">*</span></label>
   <mat-form-field class="w-100" [class.non-legacy]="appearance !== 'legacy'" [appearance]="appearance">
-    <mat-select *ngIf="selected != null" [placeholder]="appearance === 'legacy' ? placeholder : ''" [formControl]="selected" [required]="required"
+    <mat-select [placeholder]="appearance === 'legacy' ? placeholder : ''"
+                [ngModel]="value" (ngModelChange)="internalChangeValue($event)" [required]="required"
                 (touchend)="touchEnded()">
-      <mat-option *ngFor="let item of allowedValues" [value]="item.value">
-        {{item.title}}
-      </mat-option>
+      <ng-container *ngIf="groupedValues[''] !== undefined">
+        <mat-option *ngFor="let item of groupedValues['']" [value]="item.value">
+          {{item.title}}
+        </mat-option>
+      </ng-container>
+      <ng-container *ngFor="let groupKey of groupedValuesKeys">
+        <mat-optgroup *ngIf="groupKey !== ''" [label]="groupKey">
+          <mat-option *ngFor="let item of groupedValues[groupKey]" [value]="item.value">
+            {{item.title}}
+          </mat-option>
+        </mat-optgroup>
+      </ng-container>
     </mat-select>
     <fa-icon *ngIf="icon !== undefined && iconPositionPrefix" [icon]="icon" class="me-3 ms-2" matPrefix></fa-icon>
     <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matSuffix></fa-icon>
-    <mat-error *ngIf="selected?.touched && !selected?.valid">
-    <span *ngIf="selected !== undefined && selected.errors !== null && selected.errors.required">
+    <mat-error *ngIf="showError && initialized && selectbox.touched && !selectbox.valid">
+    <span *ngIf="selectbox.errors !== null && selectbox.errors.required">
       {{ errorMessages.required | default: placeholder + ' is required.' }}
     </span>
     </mat-error>

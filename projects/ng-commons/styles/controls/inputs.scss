@@ -58,6 +58,22 @@
       caret-color: $accent;
     }
   }
+
+  .noUi-target {
+    background: $surface;
+  }
+
+
+  .noUi-connect {
+    background: $color_on_surface;
+  }
+
+  .noUi-horizontal .noUi-handle {
+    width: 18px;
+    background: $accent;
+    box-shadow: none;
+    border-color: $surface;
+  }
 }
 
 .mat-form-field {
@@ -123,6 +139,48 @@
   &.mat-form-field-should-float {
     .mat-form-field-infix {
       padding: 3px 0 0;
+    }
+  }
+}
+
+.ng2-nouislider {
+  margin-right: 15px;
+}
+
+.noUi-tooltip {
+  padding: 2px 6px;
+  font-size: 0.85em;
+}
+
+.noUi-target {
+  border-color: #5a5a5a;
+  box-shadow: none;
+}
+
+.noUi-handle:after {
+  left: 5px;
+}
+.noUi-handle:before {
+  left: 10px;
+}
+
+.noUi-horizontal .noUi-handle {
+  width: 18px;
+  box-shadow: none;
+
+  &.noUi-handle-lower {
+    .noUi-tooltip {
+      right: auto;
+      left: 0;
+      transform: none;
+    }
+  }
+
+  &.noUi-handle-upper{
+    .noUi-tooltip {
+      left: auto;
+      right: 0;
+      transform: none;
     }
   }
 }
