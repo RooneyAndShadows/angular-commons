@@ -10,6 +10,7 @@ export * from './lib/form-fields/date-field/date-field.component';
 export * from './lib/form-fields/select-field/select-field.component';
 export * from './lib/form-fields/multi-autocomplete-select/multi-autocomplete-select.component';
 export * from './lib/form-fields/slider/slider.component';
+export * from './lib/form-fields/slider/extra/slider-button/slider-button.component';
 export * from './lib/forms/base/BaseActiveFormComponent';
 export * from './lib/lists/base/BaseListComponent';
 export * from './lib/components/BaseComponent';

@@ -18,6 +18,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SliderComponent } from './slider/slider.component';
 import {NouisliderModule} from "ng2-nouislider";
 import { SliderButtonComponent } from './slider/extra/slider-button/slider-button.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { SliderButtonComponent } from './slider/extra/slider-button/slider-butto
     MatChipsModule,
     MatIconModule,
     MatAutocompleteModule,
-    NouisliderModule
+    NouisliderModule,
+    MatTooltipModule
   ],
   exports: [
     TextFieldComponent,
@@ -53,7 +55,8 @@ import { SliderButtonComponent } from './slider/extra/slider-button/slider-butto
     CustomMinNumberDirective,
     NgCommonsModule,
     MultiAutocompleteSelectComponent,
-    SliderComponent
+    SliderComponent,
+    SliderButtonComponent
   ]
 })
 export class FormFieldsModule {

@@ -32,13 +32,14 @@ import {SliderButtonComponent} from "./extra/slider-button/slider-button.compone
 })
 export class SliderComponent implements BaseInputField, OnDestroy, OnInit, AfterViewInit {
   @Input() value: any = 0;
-  @Input() placeholder: string = '';
+  @Input() placeholder?: string;
   @Input() name = '';
   @Input() disabled = false;
   @Input() min: number = 0;
   @Input() max: number = 100;
   @Input() step: number = 1;
   @Input() valueLabelFormatter: (value: any) => string = (val: any) => val.toString()
+  @Input() infoDescription?: string;
 
   @Output() modelChange: EventEmitter<any> = new EventEmitter<any>();
   initialized = false;
@@ -95,7 +96,8 @@ export class SliderComponent implements BaseInputField, OnDestroy, OnInit, After
   }
 
   ngAfterViewInit(): void {
-    this.initialized = true;
+    // JESUS FIX FOR CHANGES ON RENDER. JUST PRAY WITH ME
+    setTimeout(() => this.initialized = true, 100);
   }
 
   errors(): ValidationErrors | null {
