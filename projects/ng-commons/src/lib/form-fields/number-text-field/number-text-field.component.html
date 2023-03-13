@@ -1,5 +1,5 @@
-<mat-form-field class="w-100" [class.no-error]="!showError"
-                [floatLabel]="placeholder !== null ? 'auto': 'never'" [class.no-label]="placeholder === null">
+<mat-form-field class="w-100" [class.no-error]="!showError" [appearance]="appearance"
+                [floatLabel]="'auto'" [class.no-label]="placeholder === null">
 
   <input type="text" maxlength="13"
          (focusout)="formatValue()"
@@ -13,8 +13,8 @@
          #localInput="ngModel"
          (touchend)="propagateTouch(this.value)">
 
-  <fa-icon *ngIf="icon != undefined && iconPositionPrefix " [icon]="icon" class="ms-2 me-3 color-{{iconColor}}" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon != undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2 color-{{iconColor}}" matSuffix></fa-icon>
+  <fa-icon *ngIf="icon != undefined && iconPositionPrefix " [icon]="icon" class="ms-3 me-2 color-{{iconColor}}" matPrefix></fa-icon>
+  <fa-icon *ngIf="icon != undefined && !iconPositionPrefix" [icon]="icon" class="ms-2 me-3 color-{{iconColor}}" matSuffix></fa-icon>
 
   <mat-error *ngIf="showError && initialized && input.touched">
     <span *ngIf="input.errors && input.errors.required">

@@ -3,7 +3,7 @@ import {FormControl, NG_VALUE_ACCESSOR, NgModel, ValidationErrors, Validators} f
 import {Subscription} from 'rxjs';
 import {BaseInputField} from '../base/BaseInputField';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
-import {MatFormFieldAppearance} from "@angular/material/form-field/form-field";
+import {MatFormFieldAppearance} from "@angular/material/form-field";
 
 @Component({
   selector: 'app-select-field',
@@ -34,7 +34,7 @@ export class SelectFieldComponent implements BaseInputField, OnDestroy, OnInit {
   @Input() showError = true;
 
   @Input() errorMessages: {[key in SelectErrorMessages]?: string} = {};
-  @Input() appearance: MatFormFieldAppearance = 'standard'
+  @Input() appearance: MatFormFieldAppearance = 'fill'
   initialized = false;
 
   public groupedValues: {[index: string]: SelectElement[]} = {};

@@ -3,6 +3,7 @@ import {NG_VALUE_ACCESSOR, NgModel, ValidationErrors} from '@angular/forms';
 import {formatNumber} from '@angular/common';
 import {BaseInputField} from '../base/BaseInputField';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
+import {MatFormFieldAppearance} from "@angular/material/form-field";
 
 @Component({
   selector: 'app-number-text-field',
@@ -33,6 +34,7 @@ export class NumberTextFieldComponent implements BaseInputField, OnDestroy, OnIn
   @Input() disabled = false;
   @Input() required = false;
   @Input() errorMessages: {[key in NumberFieldErrorMessages]?: string} = {};
+  @Input() appearance: MatFormFieldAppearance = 'fill'
 
   @Output() modelChange: EventEmitter<any> = new EventEmitter<any>();
 

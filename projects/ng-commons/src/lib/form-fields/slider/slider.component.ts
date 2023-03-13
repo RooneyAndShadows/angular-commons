@@ -10,7 +10,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {BaseInputField} from "../base/BaseInputField";
-import {MatFormFieldAppearance} from "@angular/material/form-field/form-field";
 import {NG_VALUE_ACCESSOR, NgModel, ValidationErrors} from "@angular/forms";
 import {SliderButtonComponent} from "./extra/slider-button/slider-button.component";
 

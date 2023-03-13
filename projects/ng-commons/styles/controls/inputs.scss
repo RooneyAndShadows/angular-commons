@@ -98,6 +98,10 @@
     align-items: center;
   }
 
+  .mat-mdc-form-field-error-wrapper{
+    padding: 0;
+  }
+
   fa-icon {
     font-size: 20px;
   }
@@ -140,6 +144,10 @@
     .mat-form-field-infix {
       padding: 3px 0 0;
     }
+  }
+
+  &.mat-form-field-invalid {
+    margin-bottom: 5px;
   }
 }
 

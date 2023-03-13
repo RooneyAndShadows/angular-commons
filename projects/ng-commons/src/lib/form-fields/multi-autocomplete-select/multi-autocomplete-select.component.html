@@ -1,15 +1,13 @@
 <mat-form-field class="w-100" [class.no-error]="!showError"
-                [floatLabel]="placeholder !== null ? 'auto': 'never'" [class.no-label]="placeholder === null">
+                [floatLabel]="'auto'" [class.no-label]="placeholder === null">
   <mat-label *ngIf="placeholder !== null" >{{placeholder}}</mat-label>
-  <mat-chip-list #chipList>
-    <mat-chip
-      *ngFor="let label of value"
-      [selectable]="false"
-      [removable]="true"
-      (removed)="remove(label)">
+  <mat-chip-grid #chipGrid aria-label="Enter fruits">
+    <mat-chip-row  *ngFor="let label of value"
+                   [removable]="true"
+                   (removed)="remove(label)">
       {{label}}
       <mat-icon matChipRemove >cancel</mat-icon>
-    </mat-chip>
+    </mat-chip-row>
     <input matInput
            placeholder="New element..."
            [(ngModel)]="internalModelValue"
@@ -18,18 +16,18 @@
            #fruitInput
            (click)="trigger.openPanel()"
            [matAutocomplete]="auto"
-           [matChipInputFor]="chipList"
+           [matChipInputFor]="chipGrid"
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
            (matChipInputTokenEnd)="addLabel($event)">
-  </mat-chip-list>
+  </mat-chip-grid>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedLabel($event)">
     <mat-option *ngFor="let label of filteredItems" [value]="label">
       {{label}}
     </mat-option>
   </mat-autocomplete>
 
-  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon" class="ms-2 me-3" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matSuffix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon" class="ms-3 me-2" matPrefix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ms-2 me-3" matSuffix></fa-icon>
 
   <mat-error *ngIf="showError && initialized && input.touched">
     <span *ngIf="required && value.length <= 0" >
