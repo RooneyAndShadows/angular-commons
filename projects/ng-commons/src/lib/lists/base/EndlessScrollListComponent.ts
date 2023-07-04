@@ -42,18 +42,24 @@ export abstract class EndlessScrollListComponent<DataType extends object> extend
 
   ngAfterViewInit(): void {
     if (this.loadScroll) {
-      window.scroll({top: this.cacheProvider.getCacheForView(this.viewName()).scroll, left: 0, behavior: 'auto'});
+      if (isPlatformBrowser(this.platformId)) {
+        this.windowRef.nativeWindow.scroll({top: this.cacheProvider.getCacheForView(this.viewName()).scroll, left: 0, behavior: 'auto'});
+      }
     }
   }
 
   ngOnDestroy() {
     super.ngOnDestroy();
-    window.removeEventListener('scroll', this.scrollEvent, true);
+    if (isPlatformBrowser(this.platformId)) {
+      this.windowRef.nativeWindow.removeEventListener('scroll', this.scrollEvent, true);
+    }
   }
 
   async internalOnInit() {
     await super.internalOnInit();
-    this.windowRef.nativeWindow.addEventListener('scroll', this.scrollEvent, true);
+    if (isPlatformBrowser(this.platformId)) {
+      this.windowRef.nativeWindow.addEventListener('scroll', this.scrollEvent, true);
+    }
   }
 
   protected initializeData(data: DataType[], forceClearCache: boolean = false): void {
