@@ -9,11 +9,11 @@
          [name]="name" [placeholder]="placeholder" #input="ngModel" (touchend)="propagateTouch(this.value)">
   <mat-datepicker #picker></mat-datepicker>
 
-  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon" class="ms-3 me-2" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="ms-2 me-3" matSuffix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon!" class="ms-3 me-2" matPrefix></fa-icon>
+  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon!" class="ms-2 me-3" matSuffix></fa-icon>
 
   <mat-error *ngIf="showError && initialized && input.touched">
-    <span *ngIf="input.errors && input.errors.required">
+    <span *ngIf="input.errors && input.errors['required']">
       {{ errorMessages.required | default: placeholder + ' is required.' }}
     </span>
   </mat-error>

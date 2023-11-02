@@ -5,8 +5,8 @@
   "projects": {
     "ng-commons": {
       "projectType": "library",
-      "root": "projects/ng-commons",
-      "sourceRoot": "projects/ng-commons/src",
+      "root": "",
+      "sourceRoot": "src",
       "prefix": "lib",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,14 +18,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ng-commons/ng-package.json"
+            "project": "ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ng-commons/tsconfig.lib.prod.json"
+              "tsConfig": "tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ng-commons/tsconfig.lib.json"
+              "tsConfig": "tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -33,5 +33,8 @@
       }
     }
   },
-  "defaultProject": "ng-commons"
+  "defaultProject": "ng-commons",
+  "cli": {
+    "analytics": false
+  }
 }

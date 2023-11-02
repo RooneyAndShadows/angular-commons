@@ -13,14 +13,14 @@
          #localInput="ngModel"
          (touchend)="propagateTouch(this.value)">
 
-  <fa-icon *ngIf="icon != undefined && iconPositionPrefix " [icon]="icon" class="ms-3 me-2 color-{{iconColor}}" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon != undefined && !iconPositionPrefix" [icon]="icon" class="ms-2 me-3 color-{{iconColor}}" matSuffix></fa-icon>
+  <fa-icon *ngIf="icon != undefined && iconPositionPrefix " [icon]="icon!" class="ms-3 me-2 color-{{iconColor}}" matPrefix></fa-icon>
+  <fa-icon *ngIf="icon != undefined && !iconPositionPrefix" [icon]="icon!" class="ms-2 me-3 color-{{iconColor}}" matSuffix></fa-icon>
 
   <mat-error *ngIf="showError && initialized && input.touched">
-    <span *ngIf="input.errors && input.errors.required">
+    <span *ngIf="input.errors && input.errors['required']">
       {{ errorMessages.required | default: placeholder + ' is required.' }}
     </span>
-    <span *ngIf="input.errors && (input.errors.appCustomMin || input.errors.min)">
+    <span *ngIf="input.errors && (input.errors['appCustomMin'] || input.errors['min'])">
        {{ errorMessages.min | default: placeholder + ' cannot be less than ' + min + ' in value.' }}
     </span>
   </mat-error>

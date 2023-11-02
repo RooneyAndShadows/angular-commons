@@ -48,14 +48,14 @@ export abstract class EndlessScrollListComponent<DataType extends object> extend
     }
   }
 
-  ngOnDestroy() {
+  override ngOnDestroy() {
     super.ngOnDestroy();
     if (isPlatformBrowser(this.platformId)) {
       this.windowRef.nativeWindow.removeEventListener('scroll', this.scrollEvent, true);
     }
   }
 
-  async internalOnInit() {
+  override async internalOnInit() {
     await super.internalOnInit();
     if (isPlatformBrowser(this.platformId)) {
       this.windowRef.nativeWindow.addEventListener('scroll', this.scrollEvent, true);

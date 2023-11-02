@@ -38,7 +38,7 @@ export abstract class BaseListComponent extends BaseComponent {
     super();
   }
 
-  async internalOnInit() {
+  override async internalOnInit() {
     await super.internalOnInit();
     BaseListComponent._lastLoadedListComponents = this.constructor.name;
   }

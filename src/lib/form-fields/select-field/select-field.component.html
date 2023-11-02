@@ -18,10 +18,10 @@
         </mat-optgroup>
       </ng-container>
     </mat-select>
-    <fa-icon *ngIf="icon !== undefined && iconPositionPrefix" [icon]="icon" class="ms-3 me-2" matPrefix></fa-icon>
-    <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon" class="me-3 ms-2" matSuffix></fa-icon>
+    <fa-icon *ngIf="icon !== undefined && iconPositionPrefix" [icon]="icon!" class="ms-3 me-2" matPrefix></fa-icon>
+    <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon!" class="me-3 ms-2" matSuffix></fa-icon>
     <mat-error *ngIf="showError && initialized && selectbox.touched && !selectbox.valid">
-    <span *ngIf="selectbox.errors !== null && selectbox.errors.required">
+    <span *ngIf="selectbox.errors !== null && selectbox.errors['required']">
       {{ errorMessages.required | default: placeholder + ' is required.' }}
     </span>
     </mat-error>
