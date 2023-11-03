@@ -33,7 +33,6 @@
       }
     }
   },
-  "defaultProject": "ng-commons",
   "cli": {
     "analytics": false
   }
