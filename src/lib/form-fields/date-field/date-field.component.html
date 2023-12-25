@@ -1,20 +1,23 @@
 <!--suppress HtmlFormInputWithoutLabel -->
-<mat-form-field class="w-100" [class.no-error]="!showError"
-                [floatLabel]="'auto'" [class.no-label]="placeholder === null">
+<div class="w-100 text-start">
+  <label>{{placeholder}}: <span *ngIf="required" class="text-danger">*</span></label>
+  <mat-form-field class="w-100" [class.no-error]="!showError"
+                  [floatLabel]="'auto'" [class.no-label]="placeholder === null">
 
-  <input matInput [matDatepicker]="picker"
-         [required]="required" [ngModel]="dateValue" value="{{ dateValue.format('DD/MM/YYYY') }}"
-         (dateChange)="internalChangeValue($event.value.toDate())"
-         (click)="picker.open()" readonly
-         [name]="name" [placeholder]="placeholder" #input="ngModel" (touchend)="propagateTouch(this.value)">
-  <mat-datepicker #picker></mat-datepicker>
+    <input matInput [matDatepicker]="picker"
+           [required]="required" [ngModel]="dateValue" value="{{ dateValue.format('DD/MM/YYYY') }}"
+           (dateChange)="internalChangeValue($event.value.toDate())"
+           (click)="picker.open()" readonly
+           [name]="name" #input="ngModel" (touchend)="propagateTouch(this.value)">
+    <mat-datepicker #picker></mat-datepicker>
 
-  <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon!" class="ms-3 me-2" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon!" class="ms-2 me-3" matSuffix></fa-icon>
+    <fa-icon *ngIf="icon !== undefined && iconPositionPrefix " [icon]="icon!" class="ms-3 me-2" matPrefix></fa-icon>
+    <fa-icon *ngIf="icon !== undefined && !iconPositionPrefix" [icon]="icon!" class="ms-2 me-3" matSuffix></fa-icon>
 
-  <mat-error *ngIf="showError && initialized && input.touched">
+    <mat-error *ngIf="showError && initialized && input.touched">
     <span *ngIf="input.errors && input.errors['required']">
       {{ errorMessages.required | default: placeholder + ' is required.' }}
     </span>
-  </mat-error>
-</mat-form-field>
+    </mat-error>
+  </mat-form-field>
+</div>

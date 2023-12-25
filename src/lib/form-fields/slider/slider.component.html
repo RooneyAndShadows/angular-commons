@@ -4,7 +4,7 @@
       <label *ngIf="placeholder != undefined && placeholder != ''">{{placeholder}}:</label>
       <p class="mb-0">{{ valueLabelFormatter(value) }}</p>
     </div>
-    <fa-icon icon="info-circle" *ngIf="infoDescription != undefined" [matTooltip]="infoDescription" matTooltipPosition="left"></fa-icon>
+    <fa-icon icon="info-circle" *ngIf="infoDescription != undefined" [matTooltip]="infoDescription!" matTooltipPosition="left"></fa-icon>
   </div>
   <div class="d-flex flex-column flex-lg-row align-items-end">
     <nouislider [min]="min" [max]="max" [step]="step"

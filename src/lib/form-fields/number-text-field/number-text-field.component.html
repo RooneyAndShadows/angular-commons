@@ -1,28 +1,30 @@
-<mat-form-field class="w-100" [class.no-error]="!showError" [appearance]="appearance"
-                [floatLabel]="'auto'" [class.no-label]="placeholder === null">
+<div class="w-100 text-start">
+  <label>{{placeholder}}: <span *ngIf="required" class="text-danger">*</span></label>
+  <mat-form-field class="w-100" [class.no-error]="!showError" [appearance]="appearance"
+                  [floatLabel]="'auto'" [class.no-label]="placeholder === null">
+    <input type="text" maxlength="13"
+           (focusout)="formatValue()"
+           [required]="required"
+           [ngModel]="displayValue"
+           [appCustomMin]="min"
+           (change)="internalChangeValue(localInput.value)"
+           (focusin)="unFormatValue()" [disabled]="disabled"
+           [name]="name" matInput
+           #localInput="ngModel"
+           (touchend)="propagateTouch(this.value)">
 
-  <input type="text" maxlength="13"
-         (focusout)="formatValue()"
-         [required]="required"
-         [ngModel]="displayValue"
-         [appCustomMin]="min"
-         (change)="internalChangeValue(localInput.value)"
-         (focusin)="unFormatValue()" [disabled]="disabled"
-         [name]="name" matInput
-         [placeholder]="placeholder"
-         #localInput="ngModel"
-         (touchend)="propagateTouch(this.value)">
+    <fa-icon *ngIf="icon != undefined && iconPositionPrefix " [icon]="icon!" class="ms-3 me-2 color-{{iconColor}}"
+             matPrefix></fa-icon>
+    <fa-icon *ngIf="icon != undefined && !iconPositionPrefix" [icon]="icon!" class="ms-2 me-3 color-{{iconColor}}"
+             matSuffix></fa-icon>
 
-  <fa-icon *ngIf="icon != undefined && iconPositionPrefix " [icon]="icon!" class="ms-3 me-2 color-{{iconColor}}" matPrefix></fa-icon>
-  <fa-icon *ngIf="icon != undefined && !iconPositionPrefix" [icon]="icon!" class="ms-2 me-3 color-{{iconColor}}" matSuffix></fa-icon>
-
-  <mat-error *ngIf="showError && initialized && input.touched">
+    <mat-error *ngIf="showError && initialized && input.touched">
     <span *ngIf="input.errors && input.errors['required']">
       {{ errorMessages.required | default: placeholder + ' is required.' }}
     </span>
-    <span *ngIf="input.errors && (input.errors['appCustomMin'] || input.errors['min'])">
+      <span *ngIf="input.errors && (input.errors['appCustomMin'] || input.errors['min'])">
        {{ errorMessages.min | default: placeholder + ' cannot be less than ' + min + ' in value.' }}
     </span>
-  </mat-error>
-</mat-form-field>
-
+    </mat-error>
+  </mat-form-field>
+</div>
