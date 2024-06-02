@@ -31,6 +31,8 @@ export class NumberTextFieldComponent implements BaseInputField, OnDestroy, OnIn
   @Input() zeroDisplay?: string;
   @Input() showError = true;
   @Input() float = true;
+  @Input() minDecimals = 2;
+  @Input() maxDecimals = 2;
   @Input() disabled = false;
   @Input() required = false;
   @Input() errorMessages: {[key in NumberFieldErrorMessages]?: string} = {};
@@ -112,7 +114,7 @@ export class NumberTextFieldComponent implements BaseInputField, OnDestroy, OnIn
     this.displayValue =
       this.value === 0 && this.zeroDisplay !== undefined ?
         this.zeroDisplay ?? '' :
-        formatNumber(this.value ?? 0, 'en', this.float ? '1.2-2' : '1.0-0');
+        formatNumber(this.value ?? 0, 'en', this.float ? `1.${this.minDecimals}-${this.maxDecimals}` : '1.0-0');
   }
 
   unFormatValue() {
