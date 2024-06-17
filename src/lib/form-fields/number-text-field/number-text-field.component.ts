@@ -25,6 +25,7 @@ export class NumberTextFieldComponent implements BaseInputField, OnDestroy, OnIn
   @Input() placeholder: string = '';
   @Input() name = '';
   @Input() min?: number;
+  @Input() max?: number;
   @Input() icon?: IconProp;
   @Input() iconColor = '';
   @Input() iconPositionPrefix = true;

@@ -19,6 +19,9 @@ import { SliderComponent } from './slider/slider.component';
 import {NouisliderModule} from "ng2-nouislider";
 import { SliderButtonComponent } from './slider/extra/slider-button/slider-button.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {
+  CustomMaxNumberDirective
+} from "./number-text-field/extensions/custom-max-number-directive/custom-max-number-directive";
 
 
 @NgModule({
@@ -28,6 +31,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     DateFieldComponent,
     SelectFieldComponent,
     CustomMinNumberDirective,
+    CustomMaxNumberDirective,
     MultiAutocompleteSelectComponent,
     SliderComponent,
     SliderButtonComponent,
